@@ -7,15 +7,17 @@ import enums.OrderStatus;
 import exceptions.BadRequestException;
 import repository.MenuRepository;
 import repository.OrderRepository;
-import service.MenuService;
 import service.OrderService;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class IOrderService implements OrderService {
 
-   private OrderRepository orderRepository;
-   private MenuRepository menuRepository;
+   private final OrderRepository orderRepository;
+   private final MenuRepository menuRepository;
 
    public IOrderService(OrderRepository orderRepository, MenuRepository menuRepository) {
 
@@ -24,34 +26,35 @@ public class IOrderService implements OrderService {
    }
 
    @Override
-   public Orders createOrder(Integer orderId, Integer cusId, Integer tableId) {
-      try {
-         return this.orderRepository.createOrder(
-               new Orders(orderId, cusId, tableId, OrderStatus.PLACED, new ArrayList<>())
-         );
-      } catch (BadRequestException e) {
-         return new Orders();
-      }
+   public Orders createOrder(Integer cusId, Integer tableId) throws BadRequestException {
+
+      return this.orderRepository.createOrder(
+            new Orders(getNextOrderId(), cusId, tableId, OrderStatus.CREATED, new ArrayList<>()));
    }
 
    @Override
-   public Orders addItemInOrder(Integer customerId, String name, Integer quantity) {
-      try {
-         MenuItem menuItem = this.menuRepository.getMenuItem(null, name);
-         Orders order = this.orderRepository.getOrder(customerId);
-         order.getOrderItems().add(
-               new OrderItem(
-                     order.getOrderId(),
-                     menuItem.getMenuId(),
-                     menuItem.getName(),
-                     quantity,
-                     menuItem.getPrice()
-               )
-         );
+   public Orders addItemInOrder(Integer customerId, String name, Integer quantity) throws BadRequestException {
 
-         return this.orderRepository.addOrderItem(order);
-      } catch (BadRequestException e) {
-         return null;
+      MenuItem menuItem = this.menuRepository.getMenuItem(null, name);
+      List<Orders> orders = this.orderRepository.getOrder(customerId, OrderStatus.CREATED);
+
+      if(Objects.isNull(orders) || orders.isEmpty()) {
+         throw new BadRequestException("Customer need to create the order first");
       }
+
+      Orders order = orders.get(0);
+      order.getOrderItems().add(new OrderItem(order.getOrderId(), menuItem.getMenuId(), menuItem.getName(), quantity,
+            menuItem.getPrice()));
+
+      return this.orderRepository.addOrderItem(order);
+   }
+
+   private Integer getNextOrderId() {
+
+      Random rand = new Random();
+
+      // Generating a random integer within the specified range
+      return rand.nextInt((1000 - 1) + 1) + 1;
    }
 }
+

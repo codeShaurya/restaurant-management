@@ -19,14 +19,10 @@ public class IMenuService implements MenuService {
    }
 
    @Override
-   public MenuItem addMenuItem(Integer id, String name, double price, MenuItemCategory category) {
+   public MenuItem addMenuItem(Integer id, String name, double price, MenuItemCategory category) throws BadRequestException {
       MenuItem menuItem = new MenuItem(id, name, price, category);
 
-      try {
-         return menuRepository.addMenuItem(menuItem);
-      } catch (BadRequestException e) {
-         return new MenuItem();
-      }
+      return menuRepository.addMenuItem(menuItem);
    }
 
    @Override
@@ -36,12 +32,8 @@ public class IMenuService implements MenuService {
    }
 
    @Override
-   public List<MenuItem> showMenu() {
-      try {
-         return menuRepository.getMenuItems();
-      } catch (BadRequestException e) {
-         return new ArrayList<MenuItem>();
-      }
+   public List<MenuItem> showMenu() throws BadRequestException {
+      return menuRepository.getMenuItems();
    }
 
    @Override
