@@ -74,4 +74,11 @@ public class Orders {
 
       this.orderItems = orderItems;
    }
+
+   @Override
+   public String toString() {
+
+      return "Orders{" + "orderId=" + orderId + ", customerId=" + customerId + ", tableId=" + tableId + ", status="
+            + status + ", orderItems=" + orderItems + '}';
+   }
 }

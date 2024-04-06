@@ -70,4 +70,11 @@ public class OrderItem {
 
       this.price = price;
    }
+
+   @Override
+   public String toString() {
+
+      return "OrderItem{" + "orderId=" + orderId + ", menuId=" + menuId + ", name='" + name + '\'' + ", quantity="
+            + quantity + ", price=" + price + '}';
+   }
 }

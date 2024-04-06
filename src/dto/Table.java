@@ -48,5 +48,10 @@ public class Table {
       tableStatus = tableStatus;
    }
 
+   @Override
+   public String toString() {
+
+      return "Table{" + "tableNumber=" + tableNumber + ", capacity=" + capacity + ", tableStatus=" + tableStatus + '}';
+   }
 }
 

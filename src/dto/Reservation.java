@@ -71,4 +71,11 @@ public class Reservation {
 
       this.status = status;
    }
+
+   @Override
+   public String toString() {
+
+      return "Reservation{" + "reservationId=" + reservationId + ", customerId=" + customerId + ", tableId=" + tableId
+            + ", reservationTime='" + reservationTime + '\'' + ", status='" + status + '\'' + '}';
+   }
 }
