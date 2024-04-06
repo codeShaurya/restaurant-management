@@ -1,71 +1,52 @@
 package dto;
 
+import enums.TableStatus;
+
 public class Table {
-   private Integer tableId;
    private Integer tableNumber;
    private Integer capacity;
-   private boolean isReserved;
-   private String reservationTime;
-   private String reservationStatus;
+   private TableStatus tableStatus;
 
-   // Constructors, getters, and setters
-   public Table() {}
+   public Table() {
 
-   public Table(Integer tableId, Integer tableNumber, Integer capacity, boolean isReserved, String reservationTime, String reservationStatus) {
-      this.tableId = tableId;
+   }
+
+   public Table(Integer tableNumber, Integer capacity, TableStatus tableStatus) {
+
       this.tableNumber = tableNumber;
       this.capacity = capacity;
-      this.isReserved = isReserved;
-      this.reservationTime = reservationTime;
-      this.reservationStatus = reservationStatus;
-   }
-
-   public Integer getTableId() {
-      return tableId;
-   }
-
-   public void setTableId(Integer tableId) {
-      this.tableId = tableId;
+      this.tableStatus = tableStatus;
    }
 
    public Integer getTableNumber() {
+
       return tableNumber;
    }
 
    public void setTableNumber(Integer tableNumber) {
+
       this.tableNumber = tableNumber;
    }
 
    public Integer getCapacity() {
+
       return capacity;
    }
 
    public void setCapacity(Integer capacity) {
+
       this.capacity = capacity;
    }
 
-   public boolean isReserved() {
-      return isReserved;
+   public TableStatus getTableStatus() {
+
+      return tableStatus;
    }
 
-   public void setReserved(boolean reserved) {
-      isReserved = reserved;
+   public void setTableStatus(TableStatus tableStatus) {
+
+      tableStatus = tableStatus;
    }
 
-   public String getReservationTime() {
-      return reservationTime;
-   }
-
-   public void setReservationTime(String reservationTime) {
-      this.reservationTime = reservationTime;
-   }
-
-   public String getReservationStatus() {
-      return reservationStatus;
-   }
-
-   public void setReservationStatus(String reservationStatus) {
-      this.reservationStatus = reservationStatus;
-   }
 }
 
