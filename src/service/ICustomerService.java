@@ -10,4 +10,7 @@ public interface ICustomerService {
    Response addOrderItem(Integer customerId, String name, Integer quantity);
 
    Response payBill();
+
+   Response reserveTable(Integer customerId, Integer tableId);
+   Response freeTable(Integer customerId, Integer tableId);
 }

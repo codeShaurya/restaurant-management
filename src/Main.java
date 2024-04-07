@@ -36,6 +36,12 @@ public class Main {
       ICustomerService customerService = new CustomerServiceImpl(menuService, orderService, reservationService);
       IStaffService staffService = new StaffServiceImpl(menuService, tableService, reservationService);
 
+      print(staffService.addTable(1, 4));
+      print(staffService.addTable(2, 1));
+      print(staffService.addTable(3, 2));
+      print(staffService.addTable(4, 3));
+      print(staffService.addTable(5, 2));
+
       System.out.println(staffService.addMenuItem(1, "Sweet", 10.0, MenuItemCategory.DESERT));
       System.out.println(staffService.addMenuItem(2, "Idli", 10.0, MenuItemCategory.MAIN_COURSE));
       System.out.println(staffService.addMenuItem(3, "Sambhar", 10.0, MenuItemCategory.MAIN_COURSE));
@@ -43,11 +49,15 @@ public class Main {
 
       System.out.println(customerService.browseMenu());
 
-      System.out.println(customerService.createOrder(1234, 1234));
-      System.out.println(customerService.addOrderItem(1234, "Sweet", 5));
-      System.out.println(customerService.addOrderItem(1234, "Idli", 4));
-      System.out.println(customerService.addOrderItem(1234, "Sambhar", 1));
-      System.out.println(customerService.addOrderItem(1234, "Gulab Jamub", 2));
+      System.out.println(customerService.createOrder(1, 1));
+      System.out.println(customerService.addOrderItem(1, "Sweet", 5));
+      System.out.println(customerService.addOrderItem(1, "Idli", 4));
+      System.out.println(customerService.addOrderItem(1, "Sambhar", 1));
+      System.out.println(customerService.addOrderItem(1, "Gulab Jamub", 2));
 
+   }
+
+   public static void print(Object object) {
+      System.out.println(object);
    }
 }

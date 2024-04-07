@@ -34,9 +34,10 @@ public class CustomerServiceImpl implements ICustomerService {
    public Response createOrder(Integer customerId, Integer tableId) {
 
       try {
+         reservationService.reserveTable(customerId, tableId);
          return new Response(orderService.createOrder(customerId, tableId), "OK", 200);
       } catch (BadRequestException e) {
-         return new Response(null, e.getMessage(), 400);
+         return new Response(null, e.getMessage() + "Could Not create Order", 400);
       }
    }
 
@@ -45,6 +46,32 @@ public class CustomerServiceImpl implements ICustomerService {
 
       try {
          return new Response(orderService.addItemInOrder(customerId, name, quantity), "OK", 200);
+      } catch (BadRequestException e) {
+         return new Response(null, e.getMessage(), 400);
+      }
+   }
+
+   @Override
+   public Response reserveTable(Integer customerId, Integer tableId) {
+      try {
+         return new Response(
+               reservationService.reserveTable(customerId, tableId),
+               "OK",
+               200
+         );
+      } catch (BadRequestException e) {
+         return new Response(null, e.getMessage(), 400);
+      }
+   }
+
+   @Override
+   public Response freeTable(Integer customerId, Integer tableId) {
+      try {
+         return new Response(
+               reservationService.freeTable(customerId, tableId),
+               "OK",
+               200
+         );
       } catch (BadRequestException e) {
          return new Response(null, e.getMessage(), 400);
       }

@@ -50,4 +50,13 @@ public class StaffServiceImpl implements IStaffService {
 
       return null;
    }
+
+   @Override
+   public Response addTable(Integer tableId, Integer capacity) {
+      try {
+         return new Response(tableService.addTable(tableId, capacity), "OK", 200);
+      } catch (BadRequestException e) {
+         return new Response(null, e.getMessage(), 400);
+      }
+   }
 }

@@ -36,7 +36,7 @@ public class TableRepositoryImpl implements ITableRepository {
 
       tableList.put(tableNumber, table);
 
-      return null;
+      return table;
    }
 
    @Override

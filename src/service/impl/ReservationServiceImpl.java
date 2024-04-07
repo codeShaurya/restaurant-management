@@ -5,6 +5,8 @@ import enums.TableStatus;
 import exceptions.BadRequestException;
 import repository.ITableRepository;
 
+import java.util.Objects;
+
 public class ReservationServiceImpl implements service.IReservationService {
    private final ITableRepository tableRepository;
 
@@ -17,6 +19,10 @@ public class ReservationServiceImpl implements service.IReservationService {
    public Table reserveTable(Integer customerId, Integer tableNumber) throws BadRequestException {
 
       Table table = tableRepository.getTable(tableNumber);
+      if(Objects.isNull(table)) {
+         throw new BadRequestException("Table Not Found");
+      }
+
       if (table.getTableStatus().equals(TableStatus.BOOKED)) {
          throw new BadRequestException("Table Already Booked");
       }
@@ -29,6 +35,10 @@ public class ReservationServiceImpl implements service.IReservationService {
    public Table freeTable(Integer customerId, Integer tableNumber) throws BadRequestException {
 
       Table table = tableRepository.getTable(tableNumber);
+      if(Objects.isNull(table)) {
+         throw new BadRequestException("Table Not Found");
+      }
+
       if (table.getTableStatus().equals(TableStatus.FREE)) {
          throw new BadRequestException("Table Was not Booked");
       }
